@@ -18,8 +18,21 @@ body{margin:0;background:#fff;color:var(--ink);font-family:"Google Sans",ui-sans
 :focus-visible{outline:2px solid var(--spark);outline-offset:3px}
 a{color:inherit;text-decoration:underline;text-decoration-color:rgba(13,17,23,.25);text-underline-offset:3px}
 a:hover{text-decoration-color:var(--ink)}
-.wrap{max-width:1440px;margin:0 auto;padding:0 20px}
-@media(min-width:768px){.wrap{padding:0 40px}}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(24px,7vw,112px);box-sizing:content-box}
+@media(max-width:1340px){.wrap{max-width:none}}
+.eyebrow{display:inline-flex;gap:10px;align-items:center;font-size:14px;color:rgba(13,17,23,.55);margin-bottom:28px}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:var(--spark);box-shadow:0 0 0 4px rgba(56,189,248,.18)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:36px}
+.btn{display:inline-flex;align-items:center;height:48px;padding:0 24px;border-radius:999px;font-size:15px;font-weight:500;text-decoration:none;transition:transform .2s var(--ease),background .2s}
+.btn:active{transform:scale(.97)}
+.btn.p{background:var(--ink);color:#fff}.btn.p:hover{background:#232c3b}
+.btn.g{box-shadow:inset 0 0 0 1px rgba(13,17,23,.15)}.btn.g:hover{box-shadow:inset 0 0 0 1px rgba(13,17,23,.3)}
+.stage{margin-top:72px}
+.stage img{display:block;width:100%;border-radius:28px;box-shadow:0 0 0 1px rgba(13,17,23,.05),0 50px 110px -45px rgba(13,17,23,.45)}
+.stage-ghost{height:110px;margin-top:6px;overflow:hidden;border-radius:28px 28px 0 0;-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.3),transparent 85%);mask-image:linear-gradient(180deg,rgba(0,0,0,.3),transparent 85%);pointer-events:none}
+.stage-ghost img{display:block;width:100%;transform:scaleY(-1);filter:blur(10px) saturate(1.2)}
+.authors{margin-top:22px;font-size:15px;color:rgba(13,17,23,.6)}
+.authors b{font-weight:500;color:var(--ink)}
 /* nav */
 nav{position:fixed;top:14px;left:50%;transform:translateX(-50%);z-index:20;display:flex;gap:4px;align-items:center;padding:6px;border-radius:999px;background:rgba(255,255,255,.72);backdrop-filter:blur(18px) saturate(1.6);-webkit-backdrop-filter:blur(18px) saturate(1.6);box-shadow:0 0 0 1px rgba(13,17,23,.06),0 20px 50px -24px rgba(13,17,23,.35)}
 nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 14px;border-radius:999px;color:rgba(13,17,23,.6);white-space:nowrap}
@@ -45,7 +58,7 @@ p{margin:0 0 14px;color:rgba(13,17,23,.75)}
 @media(prefers-reduced-motion:reduce){.hero-ghost{animation:none}*{transition:none!important}}
 .hero h1{position:relative;z-index:1;font-size:clamp(52px,8.2vw,140px);line-height:.92;margin:0;max-width:14ch}
 .hero .lede{margin-top:36px}
-.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 20px;margin-top:64px;padding-top:28px;border-top:1px solid rgba(13,17,23,.1)}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:28px 20px;margin-top:24px;padding-top:28px;border-top:1px solid rgba(13,17,23,.1)}
 @media(min-width:900px){.kpis{grid-template-columns:repeat(5,1fr)}}
 .kpis b{display:block;font-size:clamp(30px,3.2vw,46px);font-weight:500;letter-spacing:-.04em;line-height:1}
 .kpis span{display:block;margin-top:8px;font-size:14px;color:rgba(13,17,23,.55);max-width:22ch}
@@ -111,11 +124,15 @@ footer .big{font-size:clamp(64px,16vw,240px);font-weight:500;letter-spacing:-.06
 
 <header class="hero" id="top">
   <div class="wrap">
+    <div class="eyebrow"><i></i>Research · Medical image segmentation · LIDC-IDRI</div>
     <div class="hero-grid">
       <span class="hero-ghost display" aria-hidden="true">Finding lung nodules with 3 M parameters.</span>
       <h1 class="display">Finding lung nodules with 3 M parameters.</h1>
     </div>
     <p class="lede">A hybrid Swin-Transformer and Mamba U-Net that outlines lung nodules on full 512×512 chest CT slices. It is trained and tested on 700 LIDC-IDRI patients, split by patient, against U-Net and Swin-UNet retrained under the same pipeline.</p>
+    <p class="authors"><b>Balla Sai Mahesh, Madesh K K, Shachin D A, R R Dhharun</b> · School of Artificial Intelligence, Amrita Vishwa Vidyapeetham</p>
+    <div class="actions"><a class="btn p" href="#results">See the results</a><a class="btn g" href="https://github.com/rrdhharun2005-ai/swin-mamba-lung-nodule">Read the code</a></div>
+    <div class="stage"><img src="img/fig_swinmamba.png" alt="Swin-Mamba U-Net architecture"><div class="stage-ghost" aria-hidden="true"><img src="img/fig_swinmamba.png" alt=""></div></div>
     <div class="kpis">
       <div><b>0.723</b><span>Test Dice on full slices (best of four models)</span></div>
       <div><b>80.6%</b><span>Nodules found by the raw model (per slice)</span></div>
