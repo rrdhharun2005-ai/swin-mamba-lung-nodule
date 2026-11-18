@@ -1,0 +1,92 @@
+﻿params 3.08M | train slices 6101 | val patches 1960
+python.exe : D:\Claude\CV\crop_version\code\train_crop.py:162: UserWarning: Detected call of `lr_scheduler.step()` 
+before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` 
+before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate 
+schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+At line:2 char:1
++ & $py $s --model swin_mamba --in-ch 1 --name swin_mamba_2d_crop128 *> ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (D:\Claude\CV\cr...t-learning-rate:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  g = torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); sch.step()
+epoch 0: loss 1.4678 | val dice 0.5431 iou 0.3728 P 0.561 R 0.526 | 69s
+  new best 0.5431
+epoch 1: loss 1.3174 | val dice 0.6498 iou 0.4813 P 0.573 R 0.751 | 46s
+  new best 0.6498
+epoch 2: loss 1.1445 | val dice 0.6576 iou 0.4899 P 0.531 R 0.862 | 46s
+  new best 0.6576
+epoch 3: loss 0.9791 | val dice 0.7449 iou 0.5935 P 0.677 R 0.828 | 46s
+  new best 0.7449
+epoch 4: loss 0.7828 | val dice 0.7596 iou 0.6124 P 0.712 R 0.814 | 46s
+  new best 0.7596
+epoch 5: loss 0.5335 | val dice 0.7926 iou 0.6564 P 0.812 R 0.774 | 46s
+  new best 0.7926
+epoch 6: loss 0.3814 | val dice 0.7617 iou 0.6151 P 0.856 R 0.686 | 46s
+epoch 7: loss 0.3319 | val dice 0.7867 iou 0.6484 P 0.788 R 0.785 | 46s
+epoch 8: loss 0.2939 | val dice 0.8091 iou 0.6794 P 0.850 R 0.772 | 46s
+  new best 0.8091
+epoch 9: loss 0.2810 | val dice 0.8006 iou 0.6675 P 0.836 R 0.768 | 46s
+epoch 10: loss 0.2742 | val dice 0.8023 iou 0.6699 P 0.832 R 0.775 | 46s
+epoch 11: loss 0.2702 | val dice 0.7920 iou 0.6556 P 0.896 R 0.710 | 46s
+epoch 12: loss 0.2543 | val dice 0.8096 iou 0.6800 P 0.834 R 0.787 | 46s
+  new best 0.8096
+epoch 13: loss 0.2525 | val dice 0.7946 iou 0.6591 P 0.855 R 0.742 | 46s
+epoch 14: loss 0.2471 | val dice 0.8021 iou 0.6697 P 0.893 R 0.728 | 46s
+epoch 15: loss 0.2365 | val dice 0.8156 iou 0.6886 P 0.847 R 0.786 | 46s
+  new best 0.8156
+epoch 16: loss 0.2378 | val dice 0.7888 iou 0.6513 P 0.877 R 0.717 | 46s
+epoch 17: loss 0.2337 | val dice 0.7970 iou 0.6625 P 0.905 R 0.712 | 46s
+epoch 18: loss 0.2291 | val dice 0.8143 iou 0.6868 P 0.846 R 0.785 | 46s
+epoch 19: loss 0.2284 | val dice 0.8223 iou 0.6982 P 0.859 R 0.788 | 46s
+  new best 0.8223
+epoch 20: loss 0.2235 | val dice 0.8117 iou 0.6831 P 0.893 R 0.744 | 46s
+epoch 21: loss 0.2217 | val dice 0.8227 iou 0.6988 P 0.871 R 0.779 | 46s
+  new best 0.8227
+epoch 22: loss 0.2234 | val dice 0.8255 iou 0.7028 P 0.870 R 0.786 | 53s
+  new best 0.8255
+epoch 23: loss 0.2185 | val dice 0.8189 iou 0.6934 P 0.874 R 0.770 | 46s
+epoch 24: loss 0.2171 | val dice 0.8289 iou 0.7078 P 0.846 R 0.813 | 46s
+  new best 0.8289
+epoch 25: loss 0.2161 | val dice 0.8185 iou 0.6928 P 0.855 R 0.785 | 46s
+epoch 26: loss 0.2150 | val dice 0.8130 iou 0.6849 P 0.892 R 0.747 | 46s
+epoch 27: loss 0.2102 | val dice 0.8260 iou 0.7036 P 0.828 R 0.824 | 46s
+epoch 28: loss 0.2091 | val dice 0.7956 iou 0.6605 P 0.879 R 0.727 | 46s
+epoch 29: loss 0.2086 | val dice 0.8216 iou 0.6973 P 0.882 R 0.769 | 46s
+epoch 30: loss 0.2025 | val dice 0.8168 iou 0.6903 P 0.892 R 0.753 | 46s
+epoch 31: loss 0.2116 | val dice 0.8297 iou 0.7090 P 0.864 R 0.798 | 46s
+  new best 0.8297
+epoch 32: loss 0.2046 | val dice 0.8071 iou 0.6766 P 0.882 R 0.744 | 46s
+epoch 33: loss 0.1984 | val dice 0.8181 iou 0.6922 P 0.887 R 0.759 | 46s
+epoch 34: loss 0.1979 | val dice 0.8276 iou 0.7060 P 0.858 R 0.799 | 46s
+epoch 35: loss 0.1976 | val dice 0.7954 iou 0.6603 P 0.886 R 0.721 | 46s
+epoch 36: loss 0.1947 | val dice 0.8204 iou 0.6955 P 0.892 R 0.760 | 46s
+epoch 37: loss 0.1928 | val dice 0.8005 iou 0.6674 P 0.902 R 0.720 | 46s
+epoch 38: loss 0.1905 | val dice 0.8143 iou 0.6868 P 0.848 R 0.783 | 46s
+epoch 39: loss 0.1908 | val dice 0.8158 iou 0.6890 P 0.888 R 0.754 | 46s
+epoch 40: loss 0.1855 | val dice 0.8231 iou 0.6994 P 0.885 R 0.769 | 46s
+epoch 41: loss 0.1870 | val dice 0.8175 iou 0.6913 P 0.869 R 0.772 | 46s
+epoch 42: loss 0.1822 | val dice 0.8231 iou 0.6994 P 0.878 R 0.774 | 46s
+epoch 43: loss 0.1821 | val dice 0.8230 iou 0.6992 P 0.868 R 0.783 | 46s
+epoch 44: loss 0.1828 | val dice 0.8042 iou 0.6726 P 0.900 R 0.727 | 46s
+epoch 45: loss 0.1807 | val dice 0.8213 iou 0.6968 P 0.879 R 0.771 | 46s
+epoch 46: loss 0.1822 | val dice 0.8228 iou 0.6990 P 0.864 R 0.785 | 46s
+epoch 47: loss 0.1784 | val dice 0.8043 iou 0.6727 P 0.880 R 0.740 | 46s
+epoch 48: loss 0.1770 | val dice 0.8122 iou 0.6838 P 0.880 R 0.754 | 46s
+epoch 49: loss 0.1717 | val dice 0.8115 iou 0.6827 P 0.893 R 0.744 | 46s
+epoch 50: loss 0.1799 | val dice 0.8190 iou 0.6935 P 0.890 R 0.759 | 46s
+epoch 51: loss 0.1729 | val dice 0.8234 iou 0.6999 P 0.875 R 0.778 | 46s
+epoch 52: loss 0.1739 | val dice 0.8142 iou 0.6867 P 0.885 R 0.754 | 46s
+epoch 53: loss 0.1786 | val dice 0.8138 iou 0.6861 P 0.887 R 0.752 | 46s
+epoch 54: loss 0.1739 | val dice 0.8193 iou 0.6939 P 0.880 R 0.766 | 46s
+epoch 55: loss 0.1728 | val dice 0.8157 iou 0.6887 P 0.886 R 0.755 | 46s
+epoch 56: loss 0.1772 | val dice 0.8168 iou 0.6903 P 0.882 R 0.761 | 46s
+epoch 57: loss 0.1759 | val dice 0.8150 iou 0.6878 P 0.885 R 0.756 | 46s
+epoch 58: loss 0.1718 | val dice 0.8151 iou 0.6880 P 0.883 R 0.757 | 46s
+epoch 59: loss 0.1710 | val dice 0.8152 iou 0.6880 P 0.887 R 0.754 | 46s
+crop protocol test | 128x128 nodule-centred patches: 1379 | best epoch 31
+dice_global: 0.7879
+dice_pos: 0.6762
+iou_global: 0.6500
+precision: 0.8666
+recall: 0.7223

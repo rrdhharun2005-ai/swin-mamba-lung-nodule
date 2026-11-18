@@ -1,0 +1,46 @@
+{
+  "A. Raw model (threshold 0.5)": {
+    "src": "raw",
+    "thr": 0.5,
+    "area": 0,
+    "lung": null,
+    "cons": null
+  },
+  "B. + threshold tuned on val": {
+    "src": "raw",
+    "thr": 0.7,
+    "area": 0,
+    "lung": null,
+    "cons": null
+  },
+  "C. + lung mask + tiny-blob removal": {
+    "src": "raw",
+    "thr": 0.65,
+    "area": 20,
+    "lung": null,
+    "cons": null
+  },
+  "D. + slice-consistency check": {
+    "src": "raw",
+    "thr": 0.65,
+    "area": 20,
+    "lung": null,
+    "cons": null
+  },
+  "E. + test-time augmentation (Phase 1 complete)": {
+    "src": "tta",
+    "thr": 0.5,
+    "area": 20,
+    "lung": null,
+    "cons": null
+  },
+  "F. + two-stage refinement (crop model)": {
+    "src": "tta",
+    "thr": 0.5,
+    "area": 20,
+    "lung": null,
+    "cons": null,
+    "stage2_threshold": 0.7,
+    "stage2_dilate": 10
+  }
+}

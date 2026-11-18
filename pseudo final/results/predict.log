@@ -1,0 +1,18 @@
+val 4/3536  2s
+val 404/3536  94s
+val 804/3536  185s
+val 1204/3536  277s
+val 1604/3536  370s
+val 2004/3536  462s
+val 2404/3536  556s
+val 2804/3536  648s
+val 3204/3536  739s
+val done in 817s
+test 4/2558  1s
+test 404/2558  95s
+test 804/2558  189s
+test 1204/2558  282s
+test 1604/2558  376s
+test 2004/2558  469s
+test 2404/2558  563s
+test done in 600s

@@ -1,0 +1,10 @@
+val done 1020s
+test done 1699s
+train 0/12268 1699s
+train 2000/12268 1795s
+train 4000/12268 1892s
+train 6000/12268 1988s
+train 8000/12268 2082s
+train 10000/12268 2179s
+train 12000/12268 2274s
+train candidates: 9230 | done 2286s

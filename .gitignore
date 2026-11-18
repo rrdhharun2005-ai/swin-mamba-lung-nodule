@@ -1,0 +1,19 @@
+# large or licensed data
+dataset/
+.venv/
+pretrained/
+research papers/
+**/cache/
+**/runs/
+*.pt
+*.pth
+*.npy
+# documents with personal emails or third-party copyright
+*.pptx
+*.docx
+*.pdf
+__pycache__/
+*.pyc
+
+# contains personal email addresses
+**/make_paper.js

@@ -1,0 +1,46 @@
+val: 3536 slices, lung fields ready (40s)
+test: 2558 slices, lung fields ready (80s)
+component tables built (823s)
+A. Raw model (threshold 0.5): cfg {'src': 'raw', 'thr': 0.5, 'area': 0, 'lung': None, 'cons': None} | val dice 0.7384 | test dice 0.7083 fp 0.121
+B. + threshold tuned on val: cfg {'src': 'raw', 'thr': 0.7, 'area': 0, 'lung': None, 'cons': None} | val dice 0.7394 | test dice 0.7096 fp 0.114
+C. + lung mask + tiny-blob removal: cfg {'src': 'raw', 'thr': 0.65, 'area': 20, 'lung': None, 'cons': None} | val dice 0.7417 | test dice 0.7099 fp 0.090
+D. + slice-consistency check: cfg {'src': 'raw', 'thr': 0.65, 'area': 20, 'lung': None, 'cons': None} | val dice 0.7417 | test dice 0.7099 fp 0.090
+E. + test-time augmentation (Phase 1 complete): cfg {'src': 'tta', 'thr': 0.5, 'area': 20, 'lung': None, 'cons': None} | val dice 0.7568 | test dice 0.7227 fp 0.069
+stage 2 patches val: 1758 (859s)
+stage 2 patches test: 1182 (881s)
+  stage2 val t2=0.3 r=0: dice 0.7573
+  stage2 val t2=0.3 r=3: dice 0.7544
+  stage2 val t2=0.3 r=6: dice 0.7531
+  stage2 val t2=0.3 r=10: dice 0.7524
+  stage2 val t2=0.3 r=20: dice 0.7497
+  stage2 val t2=0.4 r=0: dice 0.7571
+  stage2 val t2=0.4 r=3: dice 0.7556
+  stage2 val t2=0.4 r=6: dice 0.7549
+  stage2 val t2=0.4 r=10: dice 0.7546
+  stage2 val t2=0.4 r=20: dice 0.7524
+  stage2 val t2=0.5 r=0: dice 0.7570
+  stage2 val t2=0.5 r=3: dice 0.7566
+  stage2 val t2=0.5 r=6: dice 0.7566
+  stage2 val t2=0.5 r=10: dice 0.7567
+  stage2 val t2=0.5 r=20: dice 0.7552
+  stage2 val t2=0.6 r=0: dice 0.7559
+  stage2 val t2=0.6 r=3: dice 0.7564
+  stage2 val t2=0.6 r=6: dice 0.7568
+  stage2 val t2=0.6 r=10: dice 0.7572
+  stage2 val t2=0.6 r=20: dice 0.7562
+  stage2 val t2=0.7 r=0: dice 0.7548
+  stage2 val t2=0.7 r=3: dice 0.7562
+  stage2 val t2=0.7 r=6: dice 0.7569
+  stage2 val t2=0.7 r=10: dice 0.7576
+  stage2 val t2=0.7 r=20: dice 0.7569
+F. + two-stage refinement (crop model): t2=0.7 r=10 | val dice 0.7576 | test dice 0.7103 fp 0.069
+
+TEST SET (105 patients, 2,558 full 512x512 slices)
+                                          step  test_dice_global  test_dice_pos  test_iou_global  test_precision  test_recall  test_fp_slice_rate
+                  A. Raw model (threshold 0.5)            0.7083         0.6315           0.5483          0.7438       0.6760              0.1207
+                   B. + threshold tuned on val            0.7096         0.6298           0.5498          0.7543       0.6699              0.1145
+            C. + lung mask + tiny-blob removal            0.7099         0.5761           0.5503          0.7620       0.6645              0.0903
+                  D. + slice-consistency check            0.7099         0.5761           0.5503          0.7620       0.6645              0.0903
+E. + test-time augmentation (Phase 1 complete)            0.7227         0.5843           0.5658          0.7913       0.6651              0.0693
+        F. + two-stage refinement (crop model)            0.7103         0.5840           0.5507          0.7554       0.6703              0.0693
+total 954s

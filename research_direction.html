@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research Direction</title>
+<style>
+  html { background: #fff; }
+  body {
+    background: #fff; color: #1a1a1a; margin: 0;
+    font-family: "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", serif;
+    font-size: 18px; line-height: 1.7;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  main { max-width: 700px; margin: 0 auto; padding: 72px 24px 96px; }
+  h2 { font-weight: normal; font-size: 15px; letter-spacing: .12em; text-transform: uppercase; color: #777; margin: 64px 0 20px; }
+  h2:first-child { margin-top: 0; }
+  h3 { font-size: 19px; font-weight: bold; margin: 34px 0 8px; }
+  p { margin: 0 0 18px; }
+  ul, ol { margin: 0 0 22px; padding-left: 24px; }
+  li { margin: 0 0 10px; padding-left: 4px; }
+  a { color: #1a1a1a; text-decoration: underline; text-decoration-color: #bbb; text-underline-offset: 3px; }
+  a:hover { text-decoration-color: #1a1a1a; }
+  hr { border: 0; border-top: 1px solid #e6e6e6; margin: 56px 0; }
+  dl { margin: 0; }
+  dt { font-weight: bold; margin-top: 30px; }
+  dd { margin: 6px 0 0; }
+  dd p { margin: 0 0 10px; }
+  .k { color: #777; font-style: italic; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 26px; font-size: 16px; line-height: 1.5; }
+  th { text-align: left; font-weight: normal; color: #777; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; border-bottom: 1px solid #ddd; padding: 8px 10px 8px 0; }
+  td { border-bottom: 1px solid #eee; padding: 10px 10px 10px 0; vertical-align: top; }
+  td:last-child, th:last-child { padding-right: 0; }
+  tr.total td { border-bottom: 0; font-weight: bold; }
+  .note { font-size: 16px; color: #555; }
+  .refs li { font-size: 16px; margin-bottom: 8px; }
+  .refs span { color: #777; }
+  @media (max-width: 560px) { body { font-size: 17px; } table { font-size: 14px; } }
+</style>
+</head>
+<body>
+<main>
+
+<h2>The plan</h2>
+<ul>
+  <li><b>Detection sensitivity</b></li>
+  <li><b>Error analysis</b></li>
+  <li><b>Detection sensitivity and cascade</b></li>
+</ul>
+<p><b>3D context</b> or, if we are going with full sampling, <b>full slices</b>, it should be <b>3D patches</b> and then have a <b>small module for sampling</b>, <b>cross-validation</b>, <b>pre-training</b>, and those things are part of the job.</p>
+<p>Another thing is <b>detection sensitivity of what we have</b> and those things, <b>error analysis</b>, and a very different set of <b>all kinds of edge cases</b> on that we need to check.</p>
+<p>What do we then need to research? What is the best way of doing this because we did it with 2D slices? We need to find <b>the exact pipeline that would get us into an international journal publication</b>. We need to <b>cross-reference everyone's work</b> to get to know <b>what the generalized way is</b>, <b>what novel thing we can do</b>, and <b>which is better</b>.</p>
+
+<p>Yes, your list is the right direction. For an international journal, keep the order strict: first a <b>full-scan 3D baseline</b> built <a href="https://www.nature.com/articles/s41592-020-01008-z">nnU-Net</a>-style, with <b>5-fold cross-validation</b> and <b>nodule-level sensitivity</b>, plus <b>error analysis by nodule size and type</b>. Then cross-check against the full-scan benchmarks (<a href="https://luna16.grand-challenge.org/">LUNA16</a>, <a href="https://lndb.grand-challenge.org/">LNDb</a>, and the <a href="http://medicaldecathlon.com/">Medical Segmentation Decathlon</a> lung task). Only then pick <b>one novel idea</b> aimed at the biggest error bucket, most likely <b>tiny nodules or vessel confusion</b> in a <b>lightweight detect-then-refine cascade</b>. Prove it with <b>ablations</b> and an <b>external test set</b>, rather than stacking every idea at once.</p>
+
+<hr>
+
+<h2>What top labs do</h2>
+<p>Mostly, no. Top labs treat <a href="https://www.cancerimagingarchive.net/collection/lidc-idri/">LIDC</a>, <a href="https://luna16.grand-challenge.org/">LUNA16</a> and <a href="https://lndb.grand-challenge.org/">LNDb</a> as <b>legacy datasets</b>. They use them for sanity checks or to compare with older work, not as the frontier, and when they want to push the field they <b>build their own data or benchmarks</b>.</p>
+
+<ol>
+  <li><b>Use far bigger, real-world data.</b> Google's 2019 lung-cancer screening model (<a href="https://www.nature.com/articles/s41591-019-0447-x">Ardila et al., <i>Nature Medicine</i></a>) was trained on about 42,000 CT scans from the <a href="https://cdas.cancer.gov/nlst/">NLST</a> screening trial. Its target was <b>whether the patient actually had cancer</b>, not radiologist outlines. LIDC has about 1,000 scans.</li>
+  <li><b>Predict outcomes, not outlines.</b> Their goal is "does this patient have cancer", graded against biopsy and follow-up results. Pixel-level Dice on a 4-radiologist consensus is seen as a stepping-stone metric.</li>
+  <li><b>Build foundation models.</b> Large CT models trained on hundreds of thousands of scans (such as <a href="https://github.com/wasserth/TotalSegmentator">TotalSegmentator</a>-style whole-body models, <a href="https://www.nature.com/articles/s41467-024-44824-z">MedSAM</a> and CT foundation models) are then adapted to nodules. The trend is one big model for many tasks, not one small network per dataset.</li>
+  <li><b>Fix the benchmarking itself.</b> The DKFZ group behind nnU-Net published "<a href="https://arxiv.org/abs/2404.09556">nnU-Net Revisited</a>" (2024), showing many claimed state-of-the-art gains disappear under proper, consistent baselines. They also led <a href="https://www.nature.com/articles/s41592-023-02151-z"><b>Metrics Reloaded</b></a>, a guideline for choosing metrics such as Dice versus detection metrics. That is exactly the kind of inflation we found.</li>
+  <li><b>Use multi-centre, external, prospective validation.</b> Hospital data from several countries, plus real clinical trials. A single public dataset doesn't count as proof for them.</li>
+</ol>
+
+<h2>Where that leaves us</h2>
+<ul>
+  <li>A top lab would look at a LIDC-only, 2.5D, single-split result and see a student exercise. That's not an insult; it's the honest level.</li>
+  <li>What would get their attention is evidence they care about: a clean demonstration that <b>common LIDC protocols inflate scores</b> (crop 0.82 vs full scan 0.72 with the same model) and that <b>Dice tuning hurts small-nodule detection</b>. That's a benchmarking-integrity finding in the same direction as DKFZ's work.</li>
+  <li>To <i>compete</i> with them, you'd need data at their scale, such as <a href="https://cdas.cancer.gov/nlst/">NLST</a>, which is public on application, plus outcome labels and serious compute. That's a PhD-sized project, not a course project.</li>
+</ul>
+<p><b>Bottom line:</b> frontier labs don't chase LIDC Dice. They build bigger datasets, predict cancer outcomes, train foundation models and audit benchmarks. <b>Your best overlap with them is the benchmarking-honesty finding, not the architecture.</b></p>
+
+<hr>
+
+<h2>Key terms, in plain English</h2>
+<dl>
+  <dt>Dice score</dt>
+  <dd><p><b>What it is:</b> how much the model's outline overlaps the radiologists' outline, from 0 (no overlap) to 1 (perfect).</p>
+  <p><b>Catch:</b> it barely notices a missed tiny nodule, because a tiny nodule is only a few pixels. That is why we also need sensitivity.</p></dd>
+
+  <dt>Detection sensitivity</dt>
+  <dd><p><b>What it is:</b> of all the real nodules, what share did the model find at all? Finding 90 of 100 nodules is 90% sensitivity. For screening, this matters more than Dice: a missed nodule is a missed cancer.</p>
+  <p><b>How we do it:</b> group each patient's slices into 3D nodules. A nodule counts as "found" if a prediction overlaps it, or its centre falls inside the nodule. Count found ÷ total, and split it by nodule size.</p>
+  <p><b>Framework:</b> the <b>FROC curve</b> and <b>CPM score</b> from <a href="https://luna16.grand-challenge.org/">LUNA16</a>. CPM is the average sensitivity at 1/8, 1/4, 1/2, 1, 2, 4 and 8 false alarms per scan. LUNA16 publishes the evaluation script.</p>
+  <p class="k">Current status: 80.6% per slice (raw model), 68.7% (final pipeline). Not yet measured per 3D nodule.</p></dd>
+
+  <dt>False alarms (false positives per scan)</dt>
+  <dd><p><b>What it is:</b> spots the model marks as nodules that aren't. Too many and doctors stop trusting the tool. Sensitivity is always reported together with false alarms per scan, because you can find everything by marking everything.</p></dd>
+
+  <dt>Error analysis</dt>
+  <dd><p><b>What it is:</b> looking at the model's mistakes one by one and sorting them into groups, before changing anything.</p>
+  <p><b>How we do it:</b> export the worst 200 test cases as image grids (CT, truth, prediction). Tag each one: <i>missed tiny nodule, vessel mistaken for nodule, faint ground-glass nodule, nodule touching chest wall, label disagreement</i>. Count each group. The biggest group decides the next experiment.</p>
+  <p><b>Framework:</b> a spreadsheet plus the LIDC annotation attributes (size, texture, margin, location), read with <a href="https://pylidc.github.io/">pylidc</a>.</p></dd>
+
+  <dt>Edge cases</dt>
+  <dd><p><b>What it is:</b> the rare, hard situations that break models. For us these are nodules under 6 mm, ground-glass (faint) nodules, nodules touching the chest wall or a vessel, very large irregular masses, thick-slice or noisy scans, and scans with no nodules at all.</p>
+  <p><b>How we do it:</b> build a fixed "hard-case" test list from the LIDC attributes and report every model's score on each group separately, not just one average.</p></dd>
+
+  <dt>3D context and 3D patches</dt>
+  <dd><p><b>What it is:</b> CT is a 3D volume. A vessel continues through many slices; a nodule is a small ball that appears and disappears. Seeing in 3D separates them. Our 2.5D input sees only 3 slices.</p>
+  <p><b>How we do it:</b> a full 3D scan doesn't fit in GPU memory, so we train on <b>3D cubes</b> (for example 96×96×96 voxels) cut from the scan, and predict on the whole scan by sliding the cube across it.</p>
+  <p><b>Framework:</b> <a href="https://www.nature.com/articles/s41592-020-01008-z">nnU-Net</a> (3D full-resolution setting) does this automatically. <a href="https://monai.io/">MONAI</a> provides the building blocks if we write our own model.</p></dd>
+
+  <dt>Sampling module</dt>
+  <dd><p><b>What it is:</b> the rule that decides which cubes the model trains on. Nodules are tiny, so random cubes would almost never contain one.</p>
+  <p><b>How we do it:</b> about one-third of cubes centred on nodules (extra weight for small ones), one-third on "hard negatives" (vessels the model got wrong), and one-third random. This is how the model learns both to find tiny nodules and to ignore vessels.</p></dd>
+
+  <dt>Detect-then-refine cascade</dt>
+  <dd><p><b>What it is:</b> two models in a row. <b>Model 1</b> scans the whole CT and marks every spot that might be a nodule. <b>Model 2</b> zooms into a small cube around each spot, draws the exact outline, and throws away spots that are not nodules.</p>
+  <p><b>How we do it:</b> train model 2 on model 1's <i>real</i> detections, including its mistakes, so it learns to reject them. Our first attempt failed because model 2 had only seen perfectly centred nodules.</p>
+  <p><b>Framework:</b> <a href="https://github.com/MIC-DKFZ/nnDetection">nnDetection</a> (DKFZ) for model 1, and our crop model or an nnU-Net 3D patch model for model 2.</p></dd>
+
+  <dt>5-fold cross-validation</dt>
+  <dd><p><b>What it is:</b> split the patients into 5 groups. Train on 4, test on the 5th, and repeat 5 times so every patient is tested once. Report the average and the spread.</p>
+  <p><b>Why:</b> with one split, a few hard patients can move Dice by about 1 point, so we can't tell a real improvement from luck. Split by patient, never by slice.</p></dd>
+
+  <dt>Pre-training</dt>
+  <dd><p><b>What it is:</b> first teaching the model general CT anatomy on a large unlabelled or differently labelled dataset, then fine-tuning it on nodules. The model starts already "knowing" what lungs, vessels and bones look like.</p>
+  <p><b>Framework:</b> self-supervised pre-training in <a href="https://monai.io/">MONAI</a>, or starting from public CT models such as <a href="https://github.com/wasserth/TotalSegmentator">TotalSegmentator</a> weights.</p></dd>
+
+  <dt>Ablation study</dt>
+  <dd><p><b>What it is:</b> removing one part of the system at a time to prove each part actually helps. Example: the cascade with and without the sampling module.</p>
+  <p><b>Why:</b> reviewers reject "we added five things and it got better" without this.</p></dd>
+
+  <dt>External test set</dt>
+  <dd><p><b>What it is:</b> data from a different hospital that the model never saw, used once at the end.</p>
+  <p><b>How we do it:</b> train on LIDC, test on <a href="https://lndb.grand-challenge.org/">LNDb</a> (Portugal). LUNA16 does <i>not</i> count, because it is made from LIDC scans.</p></dd>
+
+  <dt>Cross-referencing everyone's work</dt>
+  <dd><p><b>What it is:</b> a structured literature table of every strong paper. For each one, record its data, split (by patient or by slice), crop or full scan, 2D or 3D, metric, score and parameter count.</p>
+  <p><b>Why:</b> it shows the generalised standard way of doing this, where scores are inflated, and where the open gap for a novel contribution is.</p></dd>
+</dl>
+
+<hr>
+
+<h2>Timeline, compute and access</h2>
+<p class="note">Estimates for a team of four working part-time. GPU-hours are for a 24 GB card (RTX 4090 or A100 class). On the current RTX 4050 laptop (6 GB), 3D training is 3–4× slower, and some settings won't fit at all.</p>
+
+<table>
+  <tr><th>Step</th><th>Days</th><th>GPU-hours</th></tr>
+  <tr><td><b>1. Data:</b> download all 1,018 LIDC scans (about 125 GB), rebuild as 3D volumes and nodule masks, make 5 patient-wise folds</td><td>3–4</td><td>0 (CPU)</td></tr>
+  <tr><td><b>2. Error analysis and sensitivity</b> on the current model: per-3D-nodule sensitivity, error buckets, hard-case list</td><td>2–3</td><td>~2</td></tr>
+  <tr><td><b>3. Literature table:</b> cross-reference 30–50 papers</td><td>4–5 (in parallel)</td><td>0</td></tr>
+  <tr><td><b>4. 3D baseline:</b> nnU-Net 3D full-resolution, 5 folds</td><td>5–6</td><td>100–150</td></tr>
+  <tr><td><b>5. Detection:</b> nnDetection, 5 folds, plus LUNA16 FROC / CPM evaluation</td><td>5–6</td><td>80–120</td></tr>
+  <tr><td><b>6. Our method:</b> lightweight cascade with the sampling module, 5 folds</td><td>7–10</td><td>100–150</td></tr>
+  <tr><td><b>7. Ablations and seeds:</b> 4–6 variants</td><td>5–7</td><td>80–120</td></tr>
+  <tr><td><b>8. External test</b> on LNDb, plus speed tests on CPU</td><td>2–3</td><td>~10</td></tr>
+  <tr><td><b>9. Writing</b>, figures and internal review</td><td>10–14</td><td>0</td></tr>
+  <tr class="total"><td>Total</td><td>~45–60 days (6–9 weeks)</td><td>~370–550</td></tr>
+</table>
+
+<h3>Hardware</h3>
+<ul>
+  <li><b>GPU:</b> one 24 GB GPU (RTX 4090, A5000, or a cloud A100). The 6 GB laptop GPU is fine for step 2 and small tests, but not for 3D training at proper patch size.</li>
+  <li><b>Cloud cost, if renting:</b> roughly US$0.4–0.8 per hour for a 4090-class GPU, so about <b>US$150–450</b> for the whole project. A100s cost about 2–3× more per hour but run faster.</li>
+  <li><b>Storage:</b> about 500 GB of fast SSD (raw scans, preprocessed volumes, checkpoints).</li>
+  <li><b>RAM:</b> 32 GB or more for 3D preprocessing; 64 GB is comfortable.</li>
+</ul>
+
+<h3>Access we don't have yet</h3>
+<ul>
+  <li><b>GPU access:</b> a university cluster account, or a cloud account (for example a GPU rental service) with a budget.</li>
+  <li><b>LNDb dataset:</b> register on <a href="https://lndb.grand-challenge.org/">grand-challenge.org</a> and accept the data-use agreement. Allow about 1–2 weeks.</li>
+  <li><b>LUNA16 files:</b> registration on <a href="https://luna16.grand-challenge.org/">grand-challenge.org</a>. We can also rebuild it from our own LIDC copy.</li>
+  <li><b>NLST (optional, only for the bigger cancer-outcome project):</b> apply through <a href="https://cdas.cancer.gov/nlst/">NCI CDAS</a> with a project proposal. Approval can take several weeks.</li>
+  <li><b>A radiologist (optional but valuable):</b> 2–3 hours to check our error categories and label-disagreement cases. It strengthens the paper a lot.</li>
+  <li><b>Supervisor sign-off:</b> on the target journal and the author list before writing starts.</li>
+</ul>
+
+<hr>
+
+<h2>Links</h2>
+<ol class="refs">
+  <li><a href="https://www.nature.com/articles/s41591-019-0447-x">End-to-end lung cancer screening with 3D deep learning on low-dose chest CT</a> <span>— Ardila et al., Nature Medicine 2019 (Google)</span></li>
+  <li><a href="https://www.nature.com/articles/s41592-020-01008-z">nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation</a> <span>— Isensee et al., Nature Methods 2021</span></li>
+  <li><a href="https://arxiv.org/abs/2404.09556">nnU-Net Revisited: A Call for Rigorous Validation in 3D Medical Image Segmentation</a> <span>— Isensee et al., MICCAI 2024</span></li>
+  <li><a href="https://github.com/MIC-DKFZ/nnDetection">nnDetection</a> <span>— DKFZ, self-configuring 3D detection</span></li>
+  <li><a href="https://www.nature.com/articles/s41592-023-02151-z">Metrics Reloaded: recommendations for image analysis validation</a> <span>— Maier-Hein et al., Nature Methods 2024</span></li>
+  <li><a href="https://www.nature.com/articles/s41467-024-44824-z">Segment anything in medical images (MedSAM)</a> <span>— Ma et al., Nature Communications 2024</span></li>
+  <li><a href="https://github.com/wasserth/TotalSegmentator">TotalSegmentator</a> <span>— Wasserthal et al.</span></li>
+  <li><a href="https://monai.io/">MONAI</a> <span>— open-source medical imaging framework (PyTorch)</span></li>
+  <li><a href="https://pylidc.github.io/">pylidc</a> <span>— reading LIDC annotations</span></li>
+  <li><a href="https://luna16.grand-challenge.org/">LUNA16</a> <span>— lung nodule detection benchmark (FROC / CPM)</span></li>
+  <li><a href="https://lndb.grand-challenge.org/">LNDb Challenge</a> <span>— nodule detection, segmentation and characterisation</span></li>
+  <li><a href="http://medicaldecathlon.com/">Medical Segmentation Decathlon</a> <span>— Task 06 Lung</span></li>
+  <li><a href="https://www.cancerimagingarchive.net/collection/lidc-idri/">LIDC-IDRI</a> <span>— The Cancer Imaging Archive</span></li>
+  <li><a href="https://cdas.cancer.gov/nlst/">NLST — National Lung Screening Trial data</a> <span>— NCI CDAS</span></li>
+</ol>
+
+</main>
+</body>
+</html>

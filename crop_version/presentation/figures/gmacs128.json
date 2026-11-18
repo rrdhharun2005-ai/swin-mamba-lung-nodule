@@ -1,0 +1,6 @@
+{
+ "swin_mamba_25d_crop128": 0.302891008,
+ "swin_mamba_2d_crop128": 0.30171136,
+ "unet_2d_crop128": 12.022972416,
+ "swin_unet_pt_2d_crop128": 11.26170624
+}

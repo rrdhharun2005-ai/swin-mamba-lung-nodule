@@ -1,0 +1,21 @@
+tables val orig (39s)
+tables val ft (79s)
+tables val ft+2d (118s)
+tables val ft+orig (160s)
+tables test orig (187s)
+tables test ft (214s)
+tables test ft+2d (241s)
+tables test ft+orig (270s)
+E. Phase-1 final (original model, TTA, cleanup): {'src': 'orig', 'thr': 0.5, 'area': 20} | val 0.7568 | test 0.7227 fp 0.069
+G. Fine-tuned 2.5D model, re-tuned: {'src': 'ft', 'thr': 0.5, 'area': 20} | val 0.7570 | test 0.7210 fp 0.072
+H. + 2D/2.5D ensemble options (6.2 M): {'src': 'ft+2d', 'thr': 0.4, 'area': 30} | val 0.7718 | test 0.7167 fp 0.073
+refiner tuned on val: t2=0.3 r=3 erase=True -> val 0.7611
+I. + retrained two-stage refiner: {'src': 'ft+2d', 'thr': 0.4, 'area': 30, 'refiner_t': 0.3, 'refiner_dilate': 3, 'refiner_erase': True} | val 0.7611 | test 0.7167 fp 0.059
+
+TEST SET (105 patients, 2,558 full 512x512 slices)
+                                           step  test_dice_global  test_dice_pos  test_iou_global  test_precision  test_recall  test_fp_slice_rate
+E. Phase-1 final (original model, TTA, cleanup)            0.7227         0.5843           0.5658          0.7913       0.6651              0.0693
+             G. Fine-tuned 2.5D model, re-tuned            0.7210         0.5886           0.5637          0.7884       0.6642              0.0724
+          H. + 2D/2.5D ensemble options (6.2 M)            0.7167         0.5214           0.5585          0.7711       0.6695              0.0732
+               I. + retrained two-stage refiner            0.7167         0.5186           0.5584          0.7834       0.6604              0.0592
+total 419s

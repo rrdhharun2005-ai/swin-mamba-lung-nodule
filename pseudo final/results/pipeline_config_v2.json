@@ -1,0 +1,25 @@
+{
+  "E. Phase-1 final (original model, TTA, cleanup)": {
+    "src": "orig",
+    "thr": 0.5,
+    "area": 20
+  },
+  "G. Fine-tuned 2.5D model, re-tuned": {
+    "src": "ft",
+    "thr": 0.5,
+    "area": 20
+  },
+  "H. + 2D/2.5D ensemble options (6.2 M)": {
+    "src": "ft+2d",
+    "thr": 0.4,
+    "area": 30
+  },
+  "I. + retrained two-stage refiner": {
+    "src": "ft+2d",
+    "thr": 0.4,
+    "area": 30,
+    "refiner_t": 0.3,
+    "refiner_dilate": 3,
+    "refiner_erase": true
+  }
+}

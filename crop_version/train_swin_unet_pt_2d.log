@@ -1,0 +1,14 @@
+﻿params 41.39M | train slices 6101 | val patches 1960
+python.exe : D:\Claude\CV\crop_version\code\train_crop.py:162: UserWarning: Detected call of `lr_scheduler.step()` 
+before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` 
+before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate 
+schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+At line:4 char:1
++ & $py $s --model swin_unet_pt --in-ch 1 --lr 2e-4 --name swin_unet_pt ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (D:\Claude\CV\cr...t-learning-rate:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  g = torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0); sch.step()
+epoch 0: loss 0.9241 | val dice 0.7446 iou 0.5931 P 0.739 R 0.750 | 890s
+  new best 0.7446
