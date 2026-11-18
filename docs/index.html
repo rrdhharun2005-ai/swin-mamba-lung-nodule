@@ -26,6 +26,10 @@ nav a{font-size:14px;font-weight:500;text-decoration:none;padding:8px 14px;borde
 nav a:hover{background:rgba(13,17,23,.05);color:var(--ink)}
 nav .mark{color:var(--ink);padding-left:12px}
 @media(max-width:820px){nav .opt{display:none}}
+@media(max-width:480px){nav .opt2{display:none}nav a{padding:8px 11px}}
+html,body{overflow-x:clip;max-width:100%}
+.hero-ghost{max-width:100%}
+img{max-width:100%}
 /* type */
 .display{font-weight:500;letter-spacing:-.045em;line-height:.95}
 h2{font-size:clamp(30px,3vw,44px);font-weight:500;letter-spacing:-.03em;line-height:1.1;margin:0 0 14px}
@@ -98,7 +102,7 @@ footer .big{font-size:clamp(64px,16vw,240px);font-weight:500;letter-spacing:-.06
 <nav aria-label="Sections">
   <a class="mark" href="#top">Swin-Mamba</a>
   <a href="#next">Next</a>
-  <a href="#data">Data</a>
+  <a class="opt2" href="#data">Data</a>
   <a class="opt" href="#method">Method</a>
   <a class="opt" href="#training">Training</a>
   <a href="#results">Results</a>
